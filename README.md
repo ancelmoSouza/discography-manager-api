@@ -10,6 +10,7 @@
 ## For initial project use
 
 Executar o comando php artisan migrate 
+
 A seguir rode o arquivo de script contido na pasta /script do projeto.
 
 
