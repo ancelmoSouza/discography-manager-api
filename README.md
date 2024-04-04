@@ -11,7 +11,9 @@
 
 Executar o comando php artisan migrate 
 
-A seguir rode o arquivo de script contido na pasta /script do projeto.
+A seguir rode o comando:
+
+INSERT INTO `authors` (`id`, `name`, `pseudonym`, `created_at`, `updated_at`) VALUES (NULL, 'José Dias Nunes', 'Tião Carreiro & Pardinho', NULL, NULL);
 
 
 ## About Laravel
