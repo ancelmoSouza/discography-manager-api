@@ -1,0 +1,1 @@
+INSERT INTO `authors` (`id`, `name`, `pseudonym`, `created_at`, `updated_at`) VALUES (NULL, 'José Dias Nunes', 'Tião Carreiro & Pardinho', NULL, NULL);

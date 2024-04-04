@@ -13,6 +13,25 @@ class MusicAlbumRepository
     {
         $this->musicAlbum = $musicAlbum;
     }
+    public function addMusic($musicId, $albumId)
+    {
+        try {
+            DB::beginTransaction();
+            $this->musicAlbum->insert([
+                "music_id" => $musicId,
+                "album_id" => $albumId,
+            ]);
+
+            DB::commit();
+
+            return [
+                'seccess' => true,
+                "message" => "Musica adicionada ao album com sucesso"
+            ];
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
     public function delete($albumId, $musicId)
     {
         try {

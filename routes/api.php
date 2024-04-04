@@ -11,6 +11,8 @@ Route::controller(MusicController::class)->group(function () {
     Route::get('/musics/all', 'getAll');
     Route::get('/musics/getByName', 'getByName');
     Route::delete('/musics/{id}', 'delete');
+    Route::post('/music/upload', 'storageFile');
+    Route::get('/music/download/{uuid}', 'sendFile');
 });
 
 Route::controller(AlbumController::class)->group(function () {
@@ -22,6 +24,7 @@ Route::controller(AlbumController::class)->group(function () {
 });
 
 Route::controller(MusicAlbumController::class)->group(function () {
+    Route::post('/musicAlbum/add', 'addMusic');
     Route::delete('/musicAlbum/{albumId}/{musicId}', 'delete');
 });
 
