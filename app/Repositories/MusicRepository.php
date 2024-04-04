@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\DB;
 class MusicRepository
 {
     protected $music;
+    protected $musicAlbum;
 
-    public function __construct(Music $music)
+    public function __construct(Music $music, MusicAlbum $musicAlbum)
     {
         $this->music = $music;
+        $this->musicAlbum = $musicAlbum;
     }
 
     public function save(array $atributtes)
@@ -20,18 +22,15 @@ class MusicRepository
         try {
             DB::beginTransaction();
             $this->music->insert($atributtes);
+
             DB::commit();
 
             return [
-                'error' => false,
+                'success' => true,
                 'message' => 'Musica registrada com sucesso.',
-
             ];
         } catch (\Exception $e) {
-            return  [
-                'error' => true,
-                'message' => $e->getMessage(),
-            ];
+            throw new \Exception('Error: ' . $e->getMessage());
         }
     }
 
@@ -76,9 +75,15 @@ class MusicRepository
     public function delete($musicId)
     {
         try {
+
             DB::beginTransaction();
 
-            $this->music->destroy($musicId);
+            $musics = $this->musicAlbum->where('music_id', '=', $musicId)->get();
+            foreach ($musics as $m) {
+                $m->delete();
+            }
+
+            $deleted = $this->music->where('id', $musicId)->delete();
 
             DB::commit();
 

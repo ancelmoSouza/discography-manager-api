@@ -78,8 +78,12 @@ class AlbumRepository
     {
         try {
             DB::beginTransaction();
+            $albums = $this->musicAlbum->where('album_id', '=', $albumId)->get();
+            foreach ($albums as $m) {
+                $m->delete();
+            }
 
-            $response = $this->album->destroy($albumId);
+            $response = $this->album->where("id", $albumId)->delete();
 
             DB::commit();
 
@@ -105,13 +109,15 @@ class AlbumRepository
                 'music_albums.album_id',
                 'm.release_date',
             ])
-                ->join('musics as m', 'music_albums.music_id', '=', 'm.id')
+                ->leftJoin('musics as m', 'music_albums.music_id', '=', 'm.id')
+                ->where('music_albums.album_id', '=', $id)
                 ->get();
 
             return [
                 'success' => true,
                 'data' => [
                     'album_title' => $album->title,
+                    'release_date' => $album->release_date,
                     'songs'       => $listMusic
                 ]
             ];

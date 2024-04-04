@@ -39,7 +39,7 @@ class AlbumService
 
     public function getByTitle(Request $request)
     {
-        $response = $this->albumRepository->getByTitle($request->title);
+        $response = $this->albumRepository->getByTitle($request['']);
 
         if ($response['success']) {
             return response()->json($response, 200);

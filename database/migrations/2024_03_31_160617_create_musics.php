@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('author_id');
-            $table->dateTime('release_date');
+            $table->string('release_date');
+            $table->string('uuid_file')->unique();
             $table->timestamps();
-
 
             $table->foreign('author_id')->references('id')->on('authors');
         });
